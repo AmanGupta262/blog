@@ -6,6 +6,7 @@ import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import "./config/mongoose";
+import routes from "./routes";
 
 const app = express();
 app.use(express.json());
@@ -14,9 +15,8 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.json({ msg: "hello world" });
-});
+// Routes
+app.use("/api/v1/auth", routes.authRouter);
 
 // Create server
 const PORT = process.env.PORT || 8000;
