@@ -15,12 +15,12 @@ const auth = {
         email,
         password,
       });
-      res.json({ msg: "Registerd successfully", data: newUser });
+      res.json({ status: true, msg: "Registerd successfully", data: newUser });
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      return res.status(500).json({ status: false, msg: err.message });
     }
   },
-//   get: 
+  //   get:
 };
 
 export default auth;
