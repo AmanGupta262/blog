@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import User from "../models/user";
 import Jwt from "jsonwebtoken";
+import User from "../models/user";
+import { generateActiveToken } from "../config/generateToken";
 
 const auth = {
   register: async (req: Request, res: Response) => {
@@ -15,7 +16,15 @@ const auth = {
         email,
         password,
       });
-      res.json({ status: true, msg: "Registerd successfully", data: newUser });
+
+      const active_token = generateActiveToken({ newUser });
+
+      res.json({
+        status: true,
+        msg: "Registerd successfully",
+        data: newUser,
+        active_token,
+      });
     } catch (err) {
       return res.status(500).json({ status: false, msg: err.message });
     }

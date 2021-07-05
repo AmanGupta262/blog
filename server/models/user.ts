@@ -24,9 +24,13 @@ const userSchema = new mongoose.Schema(
       default:
         "https://res.cloudinary.com/amangupta/image/upload/v1625417587/image/upload/avatar_kvafwh.png",
     },
+    role: {
+      type: String,
+      default: "user", // admin
+    },
     type: {
       type: String,
-      default: "normal",
+      default: "normal", // fast
     },
   },
   {
