@@ -6,34 +6,21 @@ export const validRegister = async (
   next: NextFunction
 ) => {
   const { name, email, password } = req.body;
-  if (!name)
-    return res
-      .status(400)
-      .json({ status: false, msg: "Please enter your name." });
-  else if (name.length > 20)
-    return res
-      .status(400)
-      .json({ status: false, msg: "Your name is up to 20 chars long." });
 
-  if (!password)
-    return res
-      .status(400)
-      .json({ status: false, msg: "Please enter your password." });
-  else if (password.length < 6)
-    return res
-      .status(400)
-      .json({ status: false, msg: "Password must be 6 chars long." });
+  const errors = [];
 
-  if (!email)
-    return res
-      .status(400)
-      .json({ status: false, msg: "Please enter your email." });
-  else if (!validateEmail(email))
-    return res
-      .status(400)
-      .json({ status: false, msg: "Email format is incorrect." });
+  if (!name) errors.push("Please enter your name.");
+  else if (name.length > 20) errors.push("Your name is up to 20 chars long.");
 
-    next();
+  if (!email) errors.push("Please enter your email.");
+  else if (!validateEmail(email)) errors.push("Enter a valid email.");
+
+  if (!password) errors.push("Please enter your password.");
+  else if (password.length < 6) errors.push("Password must be 6 chars long.");
+
+  if (errors.length > 0) return res.json({ success: false, msg: errors });
+
+  next();
 };
 
 export function validateEmail(email: string) {
