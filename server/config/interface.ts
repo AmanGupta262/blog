@@ -6,6 +6,7 @@ export interface INewUser {
   password: string;
 }
 export interface IDecodeToken {
+  id?: string;
   newUser?: INewUser;
   iat: number;
   exp: number;

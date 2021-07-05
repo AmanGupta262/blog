@@ -86,7 +86,32 @@ const auth = {
   logout: async (req: Request, res: Response) => {
     try {
       res.clearCookie("refreshtoken", { path: "/api/v1/auth/refresh_token" });
-      return res.json({success: true, msg: "Logged Out"})
+      return res.json({ success: true, msg: "Logged Out" });
+    } catch (err) {
+      return res.status(500).json({ success: false, msg: err.message });
+    }
+  },
+  refreshToken: async (req: Request, res: Response) => {
+    try {
+      const rf_token = req.cookies.refreshtoken;
+
+      if (!rf_token)
+        res.status(401).json({ success: false, msg: "Please login agian." });
+
+      const decoded = <IDecodeToken>(
+        jwt.verify(rf_token, `${process.env.REFRESH_TOKEN_SECRET}`)
+      );
+
+      if (!decoded)
+        res.status(401).json({ success: false, msg: "Please login agian." });
+
+      const user = await User.findById(decoded.id).select("-password");
+
+      if (user) {
+        const access_token = generateAccessToken({ id: user._id });
+        return res.json({ success: true, access_token });
+      }
+      res.status(400).json({ success: false, msg: "User does not exists." });
     } catch (err) {
       return res.status(500).json({ success: false, msg: err.message });
     }
@@ -113,7 +138,7 @@ const loginUser = (user: IUser, password: string, res: Response) => {
   res.json({
     msg: "Login Successful",
     access_token,
-    user: { ...user._doc, password: ""  },
+    user: { ...user._doc, password: "" },
   });
 };
 

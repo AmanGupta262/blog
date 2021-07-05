@@ -8,5 +8,6 @@ router.post("/register", validRegister, auth.register);
 router.post("/verify", auth.verifyAccount);
 router.post("/login", auth.login);
 router.get("/logout", auth.logout);
+router.get("/refresh_token", auth.refreshToken);
 
 export default router;
