@@ -83,6 +83,14 @@ const auth = {
       return res.status(500).json({ success: false, msg: err.message });
     }
   },
+  logout: async (req: Request, res: Response) => {
+    try {
+      res.clearCookie("refreshtoken", { path: "/api/v1/auth/refresh_token" });
+      return res.json({success: true, msg: "Logged Out"})
+    } catch (err) {
+      return res.status(500).json({ success: false, msg: err.message });
+    }
+  },
 };
 
 const loginUser = (user: IUser, password: string, res: Response) => {
@@ -98,7 +106,7 @@ const loginUser = (user: IUser, password: string, res: Response) => {
 
   res.cookie("refreshtoken", refresh_token, {
     httpOnly: true,
-    path: "/api/v1/refresh_token",
+    path: "/api/v1/auth/refresh_token",
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 
