@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import Jwt from "jsonwebtoken";
 import User from "../models/user";
+import sendEmail from "../config/nodemailer";
+import { validateEmail } from "../middleware/valid";
 import { generateActiveToken } from "../config/generateToken";
 
+const CLIENT_URL = `${process.env.BASE_URL}`;
 const auth = {
   register: async (req: Request, res: Response) => {
     try {
@@ -18,15 +21,19 @@ const auth = {
       });
 
       const active_token = generateActiveToken({ newUser });
+      const url = `${CLIENT_URL}/active/${active_token}`
 
-      res.json({
-        status: true,
-        msg: "Registerd successfully",
-        data: newUser,
-        active_token,
-      });
+      if(validateEmail(email)){
+        sendEmail(email, url, 'Verify your email address' )
+        res.json({
+          success: true,
+          msg: "Success! Please check your email.",
+        });
+      }
+
+      
     } catch (err) {
-      return res.status(500).json({ status: false, msg: err.message });
+      return res.status(500).json({ success: false, msg: err.message });
     }
   },
   //   get:
