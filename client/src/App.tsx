@@ -1,6 +1,6 @@
-import React from 'react'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import PageRender from './PageRender'
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PageRender from "./PageRender";
 
 const App = () => {
   return (
@@ -14,6 +14,6 @@ const App = () => {
       </Router>
     </div>
   );
-}
+};
 
-export default App
+export default App;
