@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { InputChange } from "../../utils/TypeScript";
+import { FormSubmit, InputChange } from "../../utils/TypeScript";
+import { login } from "../../redux/actions/auth";
 
 const LoginPass = () => {
   const initailState = { email: "", password: "" };
@@ -9,14 +11,22 @@ const LoginPass = () => {
   const [typePass, setTypePass] = useState(false);
   const { email, password } = userLogin;
 
+  const dispatch = useDispatch();
+
   const handleInputChange = (e: InputChange) => {
     const { value, name } = e.target;
     setUserLogin({ ...userLogin, [name]: value });
   };
+  const handleSubmit = (e: FormSubmit) => {
+      e.preventDefault();
+
+      dispatch(login(userLogin));
+
+  }
 
   return (
     <>
-      <form className="mt-8 space-y-6" action="#" method="POST">
+      <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
         <input type="hidden" name="remember" value="true" />
         <div className="relative">
           <label className="text-sm font-bold text-gray-700 tracking-wide">
