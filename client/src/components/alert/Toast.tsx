@@ -1,9 +1,10 @@
-import React from "react";
+import { useDispatch } from "react-redux";
+import { ALERT, IAlertType } from "../../redux/types/alertTypes";
 
 interface IToast {
   title: string;
   body: string | string[];
-  color: string;
+  bgcolor: string;
   svg: number;
 }
 
@@ -17,12 +18,16 @@ const svgs = [
   //error
   "M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z",
 ];
-const Toast = ({ title, body, color, svg }: IToast) => {
+const Toast = ({ title, body, bgcolor, svg }: IToast) => {
+  const dispacth = useDispatch();
+  const handleClose = () => {
+      dispacth({type: ALERT, payload: {}})
+  };
   return (
     <>
-      <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 ">
+      <div className="fixed top-5 right-5 z-40 flex w-full max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 ">
         <div
-          className={`flex items-center justify-center w-12 bg-${color}-500`}
+          className={`flex items-center justify-center w-12 bg-${bgcolor}-500`}
         >
           <svg
             className="w-6 h-6 text-white fill-current"
@@ -35,8 +40,24 @@ const Toast = ({ title, body, color, svg }: IToast) => {
 
         <div className="px-4 py-2 -mx-3">
           <div className="mx-3">
+            <div
+              className="w-4 absolute top-2 right-2 cursor-pointer"
+              onClick={handleClose}
+            >
+              <svg viewBox="0 0 40 40">
+                <path
+                  className="close-x"
+                  stroke="black"
+                  fill="transparent"
+                  strokeLinecap="round"
+                  strokeWidth="3"
+                  d="M 10,10 L 30,30 M 30,10 L 10,30"
+                />
+              </svg>
+            </div>
+
             <span
-              className={`font-semibold text-${color}-500 dark:text-${color}-400`}
+              className={`font-semibold text-${bgcolor}-500 dark:text-${bgcolor}-400`}
             >
               {title}
             </span>
@@ -45,9 +66,9 @@ const Toast = ({ title, body, color, svg }: IToast) => {
                 body
               ) : (
                 <ul>
-                  {body.map((text, index) => {
-                    <li key={index}>{text}</li>;
-                  })}
+                  {body.map((text, index) => (
+                    <li key={index}>{text}</li>
+                  ))}
                 </ul>
               )}
             </p>

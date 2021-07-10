@@ -8,7 +8,12 @@ const Alert = () => {
   return (
     <>
       {alert.loading && <Loading />}
-      {/* {alert.errors && <Toast />} */}
+      {alert.errors && (
+        <Toast title="Errors" body={alert.errors} bgcolor="red" svg={2} />
+      )}
+      {alert.success && (
+        <Toast title="Success" body={alert.success} bgcolor="green" svg={0} />
+      )}
     </>
   );
 };
