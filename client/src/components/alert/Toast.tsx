@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { ALERT, IAlertType } from "../../redux/types/alertTypes";
+import { ALERT } from "../../redux/types/alertTypes";
 
 interface IToast {
   title: string;
