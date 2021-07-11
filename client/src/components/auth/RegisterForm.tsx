@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FormSubmit, InputChange } from "../../utils/TypeScript";
-import { login } from "../../redux/actions/auth";
+import { register } from "../../redux/actions/auth";
 
 const RegisterForm = () => {
   const initailState = { name: "", email: "", password: "", cf_password: "" };
@@ -21,7 +21,7 @@ const RegisterForm = () => {
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault();
 
-    // dispatch(login(userRegister));
+    dispatch(register(userRegister));
   };
 
   return (
@@ -99,7 +99,7 @@ const RegisterForm = () => {
             />
             <label
               className="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer absolute top-2 right-2"
-              onClick={() => setTypePass(!typeCfPass)}
+              onClick={() => setTypeCfPass(!typeCfPass)}
             >
               {typeCfPass ? "hide" : "show"}
             </label>
