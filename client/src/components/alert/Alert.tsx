@@ -3,7 +3,7 @@ import { RootStore } from "../../utils/TypeScript";
 import Loading from "./Loading";
 import Toast from "./Toast";
 
-const Alert = () => {
+export const Alert = () => {
   const { alert } = useSelector((state: RootStore) => state);
   return (
     <>
@@ -18,4 +18,23 @@ const Alert = () => {
   );
 };
 
-export default Alert;
+export const showErrMsg = (msg: string) => {
+  return (
+    <div
+      className="bg-red-100 border my-2 border-red-400 text-center text-red-700 px-4 py-3 rounded relative"
+      role="alert"
+    >
+      {msg}
+    </div>
+  );
+};
+export const showSuccessMsg = (msg: string) => {
+  return (
+    <div
+      className="bg-green-100 border my-2 border-green-400 text-center text-green-700 px-4 py-3 rounded relative"
+      role="alert"
+    >
+      {msg}
+    </div>
+  );
+};

@@ -40,7 +40,7 @@ const RegisterForm = () => {
           <input
             className="rounded w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
             type="text"
-            placeholder="Enter your name"
+            placeholder="Your name is up to 20 chars long"
             name="name"
             id="name"
             value={name}
@@ -69,7 +69,7 @@ const RegisterForm = () => {
             <input
               className="rounded w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
               type={typePass ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder="Password must be at least 6 chars long"
               name="password"
               id="password"
               value={password}

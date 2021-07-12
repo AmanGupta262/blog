@@ -43,7 +43,6 @@ const auth = {
   verifyAccount: async (req: Request, res: Response) => {
     try {
       const { active_token } = req.body;
-
       const decode = <IDecodeToken>(
         jwt.verify(active_token, `${process.env.ACTIVE_TOKEN_SECRET}`)
       );
@@ -52,18 +51,16 @@ const auth = {
 
       if (!newUser)
         return res.status(400).json({ msg: "Invalid authentication." });
-      const user = await User.create(newUser);
+        console.log(newUser)
+      // const user = await User.create(newUser);
 
       res.json({
         success: true,
         msg: "Account verified",
       });
     } catch (err) {
-      let errMsg;
-      if (err.code === 11000) {
-        errMsg = Object.keys(err.keyValue)[0] + " already exists";
-      }
-      return res.status(500).json({ msg: errMsg });
+      let errMsg = err.message;
+      return res.status(500).json({ msg: err.message });
     }
   },
   login: async (req: Request, res: Response) => {

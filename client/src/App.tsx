@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PageRender from "./PageRender";
 import Navbar from "./components/global/Navbar";
 import Footer from "./components/global/Footer";
-import Alert from "./components/alert/Alert";
+import {Alert} from "./components/alert/Alert";
 
 const App = () => {
   return (
