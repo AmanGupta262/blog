@@ -11,13 +11,7 @@ export const login =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
       const res = await postAPI("login", userLogin);
-      dispatch({
-        type: AUTH,
-        payload: {
-          token: res.data.access_token,
-          user: res.data.user,
-        },
-      });
+      dispatch({ type: AUTH, payload: res.data});
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });

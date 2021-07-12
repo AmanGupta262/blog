@@ -51,8 +51,10 @@ const auth = {
 
       if (!newUser)
         return res.status(400).json({ msg: "Invalid authentication." });
-        console.log(newUser)
-      // const user = await User.create(newUser);
+
+      const user = await User.findOne({ email: newUser.email });
+      if (user) return res.status(400).json({ msg: "User already exists." });
+      await User.create(newUser);
 
       res.json({
         success: true,
