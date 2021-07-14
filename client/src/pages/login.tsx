@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { RootStore } from "../utils/TypeScript";
 import LoginPass from "../components/auth/LoginPass";
 
 const Login = () => {
+  const history = useHistory();
+  const { auth } = useSelector((state: RootStore) => state);
+  useEffect(() => {
+    if (auth.access_token) history.push("/");
+  }, [history, auth.access_token]);
   return (
     <>
       <div className="min-h-screen flex  justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 relative items-center">
