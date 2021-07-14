@@ -108,7 +108,7 @@ const auth = {
 
       if (user) {
         const access_token = generateAccessToken({ id: user._id });
-        return res.json({ success: true, access_token });
+        return res.json({ success: true, access_token, user });
       }
       res.status(400).json({ success: false, msg: "User does not exists." });
     } catch (err) {

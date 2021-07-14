@@ -27,7 +27,6 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   const isActive = (pn: string) => {
-    console.log(pn, pathname);
     if (pn === pathname) return "bg-gray-700 text-white";
 
     return "text-gray-300";
@@ -137,12 +136,12 @@ const Navbar = () => {
                       onClick={() => setProfileMenu((prevState) => !prevState)}
                     >
                       <span className="sr-only">Open user menu</span>
-                      <span className="text-white mx-2 mt-1">
+                      {/* <span className="text-white mx-2 mt-1">
                         {auth.user.name.split(" ")[0]}
-                      </span>
+                      </span> */}
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={auth.user.avatar}
                         alt=""
                       />
                     </button>
