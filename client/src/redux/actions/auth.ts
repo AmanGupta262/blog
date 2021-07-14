@@ -53,3 +53,14 @@ export const refresh_token =
         dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
       }
   };
+
+export const logout =
+  () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+    try {
+      localStorage.removeItem("id");
+      await getAPI("auth/logout");
+      window.location.href = "/";
+    } catch (err: any) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
