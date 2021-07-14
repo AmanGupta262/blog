@@ -14,7 +14,7 @@ const Active = () => {
 
   useEffect(() => {
     if (slug) {
-      postAPI("verify", { active_token: slug })
+      postAPI("auth/verify", { active_token: slug })
         .then((res) => setSuccess(res.data.msg))
         .catch((err) => setErr(err.response.data.msg));
     }

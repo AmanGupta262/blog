@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Search from "./Search";
 
 const Navbar = () => {
@@ -16,6 +16,14 @@ const Navbar = () => {
     { label: "Settings", path: "/settings" },
     { label: "Sign Out", path: "/logout" },
   ];
+  const {pathname} = useLocation();
+
+  const isActive = (pn: string) => {
+    console.log(pn, pathname)
+    if(pn === pathname) return "bg-gray-700 text-white";
+
+    return "text-gray-300"
+  }
   return (
     <>
       <nav className="bg-gray-800" >
@@ -77,7 +85,7 @@ const Navbar = () => {
                     <Link
                       key={index}
                       to={link.path}
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                      className={`${isActive(link.path)} hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
                     >
                       {link.label}
                     </Link>
@@ -159,7 +167,7 @@ const Navbar = () => {
                 <Link
                   key={index}
                   to={link.path}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className={`${isActive(link.path)} hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium`}
                 >
                   {link.label}
                 </Link>

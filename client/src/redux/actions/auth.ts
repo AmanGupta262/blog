@@ -10,7 +10,7 @@ export const login =
   async (dispatch: Dispatch<IAuthType | IAlertType>) => {
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
-      const res = await postAPI("login", userLogin);
+      const res = await postAPI("auth/login", userLogin);
       dispatch({ type: AUTH, payload: res.data});
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
@@ -27,10 +27,23 @@ export const register =
       return dispatch({ type: ALERT, payload: { errors: check.errMsg } });
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
-      const res = await postAPI("register", userRegister);
+      const res = await postAPI("auth/register", userRegister);
       console.log(res)
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
   };
+
+  export const refresh_token =
+    (userLogin: IUserLogin) =>
+    async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+      try {
+        dispatch({ type: ALERT, payload: { loading: true } });
+        const res = await postAPI("auth/refresh_token", userLogin);
+        dispatch({ type: AUTH, payload: res.data });
+        dispatch({ type: ALERT, payload: { success: res.data.msg } });
+      } catch (err: any) {
+        dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+      }
+    };

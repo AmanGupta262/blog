@@ -1,7 +1,15 @@
 import axios from "axios";
 
 export const postAPI = async (url: string, post: object, token?: string) => {
-  const res = await axios.post(`/api/v1/auth/${url}`, post, {
+  const res = await axios.post(`/api/v1/${url}`, post, {
+    headers: { Authorization: token },
+  });
+
+  return res;
+};
+
+export const getAPI = async (url: string, token?: string) => {
+  const res = await axios.get(`/api/v1/${url}`, {
     headers: { Authorization: token },
   });
 
