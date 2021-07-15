@@ -11,6 +11,7 @@ const Navbar = () => {
   const [profileMenu, setProfileMenu] = useState(false);
   
   const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state);
 
   const bfLoginLinks = [
     { label: "Home", path: "/" },
@@ -22,11 +23,10 @@ const Navbar = () => {
     { label: "Create", path: "/create" },
   ];
   const userNavigation = [
-    { label: "Profile", path: "/profile" },
+    { label: "Profile", path: `/profile/${auth.user?._id}` },
     { label: "Settings", path: "/settings" },
     { label: "Logout", path: "/logout" },
   ];
-  const { auth } = useSelector((state: RootStore) => state);
   const links = auth.access_token ? afLoginLinks : bfLoginLinks;
   const { pathname } = useLocation();
 
