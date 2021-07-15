@@ -27,13 +27,13 @@ const Login = () => {
           
           <div className="flex flex-row justify-center items-center space-x-3">
             <SocialLogin />
-            <span className="w-11 h-11 items-center justify-center inline-flex rounded-full font-bold text-lg  text-white bg-gray-100 hover:shadow-lg cursor-pointer transition ease-in duration-300">
+            {/* <span className="w-11 h-11 items-center justify-center inline-flex rounded-full font-bold text-lg  text-white bg-gray-100 hover:shadow-lg cursor-pointer transition ease-in duration-300">
               <img
                 alt=""
                 src="https://image.flaticon.com/icons/png/512/179/179323.png"
                 className="w-4 h-4"
               />
-            </span>
+            </span> */}
           </div>
           <div className="flex items-center justify-center space-x-2">
             <span className="h-px w-16 bg-gray-300"></span>
