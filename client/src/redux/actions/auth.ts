@@ -78,3 +78,17 @@ export const googleLogin =
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
   };
+
+export const facebookLogin =
+  (accessToken: string, userID: string) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+    try {
+      dispatch({ type: ALERT, payload: { loading: true } });
+      const res = await postAPI("auth/facebook-login", { accessToken, userID });
+      dispatch({ type: AUTH, payload: res.data });
+      dispatch({ type: ALERT, payload: { success: res.data.msg } });
+
+      localStorage.setItem("id", "jakfjalkfalf");
+    } catch (err: any) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };

@@ -145,6 +145,33 @@ const auth = {
       return res.status(500).json({ success: false, msg: err.message });
     }
   },
+  facebookLogin: async (req: Request, res: Response) => {
+    try {
+      const { accessToken, userID } = req.body;
+
+      const URL = `https://graph.facebook.com/v3.0/${userID}/?fields=id,name,email,picture&access_token=${accessToken}`;
+      
+      // const { email, email_verified, name, picture } = <IGoPayload>(
+      //   verify.getPayload()
+      // );
+
+      // if (!email_verified)
+      //   return res.status(500).json({ msg: "Email verification failed." });
+
+      // const password = email + "j$l495i)()&K#";
+
+      // const user = await User.findOne({ email });
+
+      // if (user) {
+      //   loginUser(user, password, res);
+      // } else {
+      //   const user = { name, email, password, avatar: picture, type: "login" };
+      //   registerUser(user, res);
+      // }
+    } catch (err) {
+      return res.status(500).json({ success: false, msg: err.message });
+    }
+  },
 };
 
 const loginUser = (user: IUser, password: string, res: Response) => {

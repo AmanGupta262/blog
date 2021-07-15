@@ -7,7 +7,7 @@ import {
 
 import FacebookLogin from "react-facebook-login-typed";
 
-import { googleLogin } from "../../redux/actions/auth";
+import { googleLogin, facebookLogin } from "../../redux/actions/auth";
 import { useDispatch } from "react-redux";
 
 const SocialLogin = () => {
@@ -21,7 +21,7 @@ const SocialLogin = () => {
   };
   const responseFacebook = useCallback((response) => {
     const {accessToken, userID} = response
-    console.log({ accessToken, userID });
+    dispatch(facebookLogin(accessToken, userID))
   }, []);
   return (
     <>
