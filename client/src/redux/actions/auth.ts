@@ -39,19 +39,19 @@ export const register =
 
 export const refresh_token =
   () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
-    const loggedIn = localStorage.getItem("id")
+    const loggedIn = localStorage.getItem("id");
     if (loggedIn !== "jakfjalkfalf") return;
-      try {
-        dispatch({ type: ALERT, payload: { loading: true } });
+    try {
+      dispatch({ type: ALERT, payload: { loading: true } });
 
-        const res = await getAPI("auth/refresh_token");
+      const res = await getAPI("auth/refresh_token");
 
-        dispatch({ type: AUTH, payload: res.data });
+      dispatch({ type: AUTH, payload: res.data });
 
-        dispatch({ type: ALERT, payload: {} });
-      } catch (err: any) {
-        dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
-      }
+      dispatch({ type: ALERT, payload: {} });
+    } catch (err: any) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
   };
 
 export const logout =
@@ -60,6 +60,20 @@ export const logout =
       localStorage.removeItem("id");
       await getAPI("auth/logout");
       window.location.href = "/";
+    } catch (err: any) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
+
+export const googleLogin =
+  (token: string) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+    try {
+      dispatch({ type: ALERT, payload: { loading: true } });
+      const res = await postAPI("auth/google-login", { token });
+      dispatch({ type: AUTH, payload: res.data });
+      dispatch({ type: ALERT, payload: { success: res.data.msg } });
+
+      localStorage.setItem("id", "jakfjalkfalf");
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
