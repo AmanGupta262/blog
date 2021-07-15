@@ -8,8 +8,14 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../config/generateToken";
-import { IDecodeToken, IUser, IGoPayload, IUserParams } from "../config/interface";
+import {
+  IDecodeToken,
+  IUser,
+  IGoPayload,
+  IUserParams,
+} from "../config/interface";
 import { OAuth2Client } from "google-auth-library";
+import fetch from "node-fetch";
 
 const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
 const CLIENT_URL = `${process.env.BASE_URL}`;
@@ -150,24 +156,22 @@ const auth = {
       const { accessToken, userID } = req.body;
 
       const URL = `https://graph.facebook.com/v3.0/${userID}/?fields=id,name,email,picture&access_token=${accessToken}`;
-      
-      // const { email, email_verified, name, picture } = <IGoPayload>(
-      //   verify.getPayload()
-      // );
 
-      // if (!email_verified)
-      //   return res.status(500).json({ msg: "Email verification failed." });
+      const data = await fetch(URL)
+        .then((res) => res.json())
+        .then((res) => res);
+      const { email, name, picture } = data;
 
-      // const password = email + "j$l495i)()&K#";
+      const password = email + "j$l495i)()&K87#";
 
-      // const user = await User.findOne({ email });
+      const user = await User.findOne({ email });
 
-      // if (user) {
-      //   loginUser(user, password, res);
-      // } else {
-      //   const user = { name, email, password, avatar: picture, type: "login" };
-      //   registerUser(user, res);
-      // }
+      if (user) {
+        loginUser(user, password, res);
+      } else {
+        const user = { name, email, password, avatar: picture.data.url, type: "login" };
+        registerUser(user, res);
+      }
     } catch (err) {
       return res.status(500).json({ success: false, msg: err.message });
     }
