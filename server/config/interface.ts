@@ -21,3 +21,18 @@ export interface IUser extends Document {
   type: string;
   _doc: object;
 }
+
+export interface IGoPayload {
+  email: string;
+  email_verified: boolean;
+  name: string;
+  picture: string;
+}
+
+export interface IUserParams {
+  name: string;
+  email: string;
+  password: string;
+  avatar?: string;
+  type: string;
+}

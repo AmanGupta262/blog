@@ -8,8 +8,10 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../config/generateToken";
-import { IDecodeToken, IUser } from "../config/interface";
+import { IDecodeToken, IUser, IGoPayload, IUserParams } from "../config/interface";
+import { OAuth2Client } from "google-auth-library";
 
+const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
 const CLIENT_URL = `${process.env.BASE_URL}`;
 const auth = {
   register: async (req: Request, res: Response) => {
@@ -115,6 +117,34 @@ const auth = {
       return res.status(500).json({ success: false, msg: err.message });
     }
   },
+  googleLogin: async (req: Request, res: Response) => {
+    try {
+      const { token } = req.body;
+      const verify = await client.verifyIdToken({
+        idToken: token,
+        audience: `${process.env.MAIL_CLIENT_ID}`,
+      });
+      const { email, email_verified, name, picture } = <IGoPayload>(
+        verify.getPayload()
+      );
+
+      if (!email_verified)
+        return res.status(500).json({ msg: "Email verification failed." });
+
+      const password = email + "j$l495i)()&K#";
+
+      const user = await User.findOne({ email });
+
+      if (user) {
+        loginUser(user, password, res);
+      } else {
+        const user = { name, email, password, avatar: picture, type: "login" };
+        registerUser(user, res);
+      }
+    } catch (err) {
+      return res.status(500).json({ success: false, msg: err.message });
+    }
+  },
 };
 
 const loginUser = (user: IUser, password: string, res: Response) => {
@@ -138,6 +168,24 @@ const loginUser = (user: IUser, password: string, res: Response) => {
     msg: "Login Successful",
     access_token,
     user: { ...user._doc, password: "" },
+  });
+};
+
+const registerUser = async (user: IUserParams, res: Response) => {
+  const newUser = await User.create(user);
+  const access_token = generateAccessToken({ id: newUser._id });
+  const refresh_token = generateRefreshToken({ id: newUser._id });
+
+  res.cookie("refreshtoken", refresh_token, {
+    httpOnly: true,
+    path: "/api/v1/auth/refresh_token",
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  });
+
+  res.json({
+    msg: "Login Successful",
+    access_token,
+    user: { ...newUser._doc, password: "" },
   });
 };
 
