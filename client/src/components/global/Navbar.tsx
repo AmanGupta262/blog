@@ -8,7 +8,6 @@ import { logout } from "../../redux/actions/auth";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
-  const [profileMenu, setProfileMenu] = useState(false);
   
   const dispatch = useDispatch()
   const { auth } = useSelector((state: RootStore) => state);
@@ -129,7 +128,7 @@ const Navbar = () => {
                   </svg>
                 </button>
 
-                <div className="ml-3 relative">
+                <div className="ml-3 relative " id="profile-menu">
                   <div>
                     <button
                       type="button"
@@ -137,7 +136,6 @@ const Navbar = () => {
                       id="user-menu-button"
                       aria-expanded="false"
                       aria-haspopup="true"
-                      onClick={() => setProfileMenu((prevState) => !prevState)}
                     >
                       <span className="sr-only">Open user menu</span>
                       {/* <span className="text-white mx-2 mt-1">
@@ -150,42 +148,42 @@ const Navbar = () => {
                       />
                     </button>
                   </div>
-                  {profileMenu && (
-                    <div
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu-button"
-                      tabIndex={-1}
-                    >
-                      {userNavigation.map((link, index) =>
-                        link.label === "Logout" ? (
-                          <Link
-                            key={index}
-                            to={link.path}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50"
-                            role="menuitem"
-                            tabIndex={-1}
-                            id={`user-menu-item-${index}`}
-                            onClick={() => dispatch(logout())}
-                          >
-                            {link.label}
-                          </Link>
-                        ) : (
-                          <Link
-                            key={index}
-                            to={link.path}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50"
-                            role="menuitem"
-                            tabIndex={-1}
-                            id={`user-menu-item-${index}`}
-                          >
-                            {link.label}
-                          </Link>
-                        )
-                      )}
-                    </div>
-                  )}
+
+                  <div
+                    className="origin-top-right absolute right-0 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20"
+                    role="menu"
+                    id="profile-menu-item"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu-button"
+                    tabIndex={-1}
+                  >
+                    {userNavigation.map((link, index) =>
+                      link.label === "Logout" ? (
+                        <Link
+                          key={index}
+                          to={link.path}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50"
+                          role="menuitem"
+                          tabIndex={-1}
+                          id={`user-menu-item-${index}`}
+                          onClick={() => dispatch(logout())}
+                        >
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <Link
+                          key={index}
+                          to={link.path}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50"
+                          role="menuitem"
+                          tabIndex={-1}
+                          id={`user-menu-item-${index}`}
+                        >
+                          {link.label}
+                        </Link>
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             )}

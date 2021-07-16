@@ -22,7 +22,7 @@ const SocialLogin = () => {
   const responseFacebook = useCallback((response) => {
     const {accessToken, userID} = response
     dispatch(facebookLogin(accessToken, userID))
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <GoogleLogin

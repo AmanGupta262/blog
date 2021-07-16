@@ -1,0 +1,6 @@
+#profile-menu-item{
+    display: none;
+}
+#profile-menu:hover #profile-menu-item{
+    display: block;
+}
