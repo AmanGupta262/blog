@@ -41,7 +41,7 @@ const UserInfo = () => {
     return (
       <>
         <div className="w-full p-4 flex">
-          <form className="mt-8 space-y-6 w-full" method="POST">
+          <form className="mt-8 space-y-6 w-full" onSubmit={handleFromSubmit}>
             <div className="flex justify-center">
               <div className="profile-pic relative overflow-hidden h-40 w-40">
                 <img

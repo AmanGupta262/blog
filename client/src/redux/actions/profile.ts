@@ -1,7 +1,7 @@
 import { IAuth } from "../types/authTypes";
 import { ALERT, IAlertType } from "../types/alertTypes";
 import { Dispatch } from "react";
-import { checkImage } from "../../utils/imageUpload";
+import { checkImage, uploadImage } from "../../utils/imageUpload";
 
 
 export const updateUser =
@@ -17,9 +17,12 @@ export const updateUser =
             if(check){
                 return dispatch({type: ALERT, payload: { errors: check }});
             }
+
+            const pic = await uploadImage(avatar);
+            console.log(pic);
         }
 
-        dispatch({ type: ALERT, payload: { loading: true } });
+        dispatch({ type: ALERT, payload: { loading: false } });
         
     } catch (err: any) {
         dispatch({type: ALERT, payload: {errors: err.response.data.message}});
