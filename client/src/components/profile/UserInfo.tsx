@@ -1,20 +1,33 @@
 import React,{ useState }   from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { InputChange, RootStore } from "../../utils/TypeScript";
+import { InputChange, RootStore, IUserProfile } from "../../utils/TypeScript";
 
 const UserInfo = () => {
     const { auth } = useSelector((state: RootStore) => state);
 
-    const initailState = { name: "", email: "", password: "", cf_password: "" };
-    const [user, setUser] = useState(initailState);
+    const initailState = { name: "", email: "", password: "", cf_password: "", avatar: "" };
+    const [user, setUser] = useState<IUserProfile>(initailState);
     const [typePass, setTypePass] = useState(false);
     const [typeCfPass, setTypeCfPass] = useState(false);
+
+    const { name, email, avatar, password, cf_password } = user;
+
+    const handleFileChange = (e: InputChange) => {
+      const target = e.target as HTMLInputElement;
+      
+      const files = target.files;
+      if (files) {
+        const file = files[0]; 
+        setUser({...user, avatar: file});
+      }
+    }
 
     const handleInputChange = (e: InputChange) => {
       const { value, name } = e.target;
       setUser({ ...user, [name]: value });
     };
-    const { name, email, password, cf_password } = user;
+    
+    if(!auth.user) return <div></div>
     return (
       <>
         <div className="w-full p-4 flex">
@@ -22,8 +35,8 @@ const UserInfo = () => {
             <div className="relative flex justify-center">
               <img
                 className="h-40 w-40 rounded-full shadow-md border-4 border-white"
-                src={auth.user?.avatar}
-                alt=""
+                src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
+                alt={auth.user.name}
               />
             </div>
             <div className="">
@@ -37,6 +50,7 @@ const UserInfo = () => {
                 placeholder="Your name is up to 20 chars long"
                 name="pic"
                 id="pic"
+                onChange={handleFileChange}
               />
             </div>
             <div className="">
@@ -49,7 +63,7 @@ const UserInfo = () => {
                 placeholder="Your name is up to 20 chars long"
                 name="name"
                 id="name"
-                value={auth.user?.name}
+                value={auth.user.name}
                 onChange={handleInputChange}
               />
             </div>
@@ -63,7 +77,8 @@ const UserInfo = () => {
                 placeholder="Enter your email"
                 name="email"
                 id="email"
-                value={auth.user?.email}
+                disabled={true}
+                value={auth.user.email}
                 onChange={handleInputChange}
               />
             </div>

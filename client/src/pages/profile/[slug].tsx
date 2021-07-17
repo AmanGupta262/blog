@@ -13,10 +13,10 @@ const Profile = () => {
   return (
     <>
       <div className="bg-gray-100 container p-5 flex flex-col md:flex-row">
-        <div className="md:w-1/3 mb-4 bg-white md:mr-4 w-full rounded">
+        <div className="md:w-1/3 mb-4 bg-white md:mr-4 w-full shadow-md rounded-lg">
           {auth.user?._id === slug ? <UserInfo /> : <OtherInfo />}
         </div>
-        <div className="md:w-2/3 bg-white w-full rounded">
+        <div className="md:w-2/3 bg-white w-full shadow-md rounded-lg">
           <UserBlogs />
         </div>
       </div>
