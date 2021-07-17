@@ -1,9 +1,12 @@
 import React,{ useState }   from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { InputChange, RootStore, IUserProfile } from "../../utils/TypeScript";
+import { InputChange, RootStore, IUserProfile, FormSubmit } from "../../utils/TypeScript";
+import { updateUser } from '../../redux/actions/profile';
 
 const UserInfo = () => {
     const { auth } = useSelector((state: RootStore) => state);
+
+    const dispatch = useDispatch();
 
     const initailState = { name: "", email: "", password: "", cf_password: "", avatar: "" };
     const [user, setUser] = useState<IUserProfile>(initailState);
@@ -25,6 +28,13 @@ const UserInfo = () => {
     const handleInputChange = (e: InputChange) => {
       const { value, name } = e.target;
       setUser({ ...user, [name]: value });
+    };
+
+    const handleFromSubmit = (e: FormSubmit) => {
+      e.preventDefault();
+      if(avatar || name) {
+        dispatch(updateUser((avatar as File), name, auth));
+      }
     };
     
     if(!auth.user) return <div></div>
@@ -99,7 +109,6 @@ const UserInfo = () => {
                   placeholder="Password must be at least 6 chars long"
                   name="password"
                   id="password"
-                  value={password}
                   onChange={handleInputChange}
                 />
                 <label
@@ -121,7 +130,6 @@ const UserInfo = () => {
                   placeholder="Confirm password"
                   name="cf_password"
                   id="cf_password"
-                  value={cf_password}
                   onChange={handleInputChange}
                 />
                 <label
