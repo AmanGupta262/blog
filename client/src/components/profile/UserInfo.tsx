@@ -32,27 +32,33 @@ const UserInfo = () => {
       <>
         <div className="w-full p-4 flex">
           <form className="mt-8 space-y-6 w-full" method="POST">
-            <div className="relative flex justify-center">
-              <img
-                className="h-40 w-40 rounded-full shadow-md border-4 border-white"
-                src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
-                alt={auth.user.name}
-              />
+            <div className="flex justify-center">
+              <div className="profile-pic relative overflow-hidden h-40 w-40">
+                <img
+                  className="h-full w-full rounded-full shadow-md border-4 border-white"
+                  src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
+                  alt={auth.user.name}
+                />
+                <div className="upload-icon flex justify-center absolute -bottom-1/2 left-0 w-full h-1/2 opacity-50 bg-gray-100">
+                  <img
+                  className="w-5 h-5 mt-2"
+                    src="https://image.flaticon.com/icons/png/512/45/45010.png"
+                    alt=""
+                  />
+                </div>
+                
+                <input
+                  className="absolute opacity-0 cursor-pointer top-0 left-0 w-full h-full rounded text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                  type="file"
+                  accept="image/*"
+                  placeholder="Your name is up to 20 chars long"
+                  name="pic"
+                  id="pic"
+                  onChange={handleFileChange}
+                />
+              </div>
             </div>
-            <div className="">
-              <label className="text-sm font-bold text-gray-700 tracking-wide">
-                Profile pic
-              </label>
-              <input
-                className="rounded w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                type="file"
-                accept="image/*"
-                placeholder="Your name is up to 20 chars long"
-                name="pic"
-                id="pic"
-                onChange={handleFileChange}
-              />
-            </div>
+
             <div className="">
               <label className="text-sm font-bold text-gray-700 tracking-wide">
                 Name

@@ -4,3 +4,9 @@
 #profile-menu:hover #profile-menu-item{
     display: block;
 }
+.upload-icon{
+    transition: all 0.3s ease-in-out;
+}
+.profile-pic:hover .upload-icon{
+    bottom: -25%;
+}
