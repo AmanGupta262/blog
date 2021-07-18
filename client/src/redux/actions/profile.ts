@@ -1,30 +1,51 @@
-import { IAuth } from "../types/authTypes";
+import { IAuth, IAuthType, AUTH } from "../types/authTypes";
 import { ALERT, IAlertType } from "../types/alertTypes";
 import { Dispatch } from "react";
 import { checkImage, uploadImage } from "../../utils/imageUpload";
-
+import { patchAPI } from "../../utils/FetchData";
 
 export const updateUser =
-  (avatar: File, name: string, auth: IAuth) => async (dispatch: Dispatch<IAlertType>) => {
-    if(!auth.access_token || !auth.user) return;
+  (avatar: File, name: string, auth: IAuth) =>
+  async (dispatch: Dispatch<IAlertType | IAuthType>) => {
+    if (!auth.access_token || !auth.user) return;
 
-    let url = ''
+    let url = "";
     try {
-        dispatch({type: ALERT, payload: { loading: true }});
+      dispatch({ type: ALERT, payload: { loading: true } });
 
-        if(avatar) {
-            const check = checkImage(avatar)
-            if(check){
-                return dispatch({type: ALERT, payload: { errors: check }});
-            }
-
-            const pic = await uploadImage(avatar);
-            console.log(pic);
+      if (avatar) {
+        const check = checkImage(avatar);
+        if (check) {
+          return dispatch({ type: ALERT, payload: { errors: check } });
         }
 
-        dispatch({ type: ALERT, payload: { loading: false } });
-        
+        const pic = await uploadImage(avatar);
+        url = pic.url;
+      }
+
+      dispatch({
+        type: AUTH,
+        payload: {
+          access_token: auth.access_token,
+          user: {
+            ...auth.user,
+            name: name ? name : auth.user.name,
+            avatar: url ? url : auth.user.avatar,
+          },
+        },
+      });
+      
+      const res = await patchAPI(
+        `/users/update`,
+        {
+          name: name ? name : auth.user.name,
+          avatar: url ? url : auth.user.avatar,
+        },
+        auth.access_token
+      );
+
+      dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
-        dispatch({type: ALERT, payload: {errors: err.response.data.message}});
+      dispatch({ type: ALERT, payload: { errors: err.response.data.message } });
     }
   };

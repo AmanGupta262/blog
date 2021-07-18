@@ -13,7 +13,7 @@ const UserInfo = () => {
     const [typePass, setTypePass] = useState(false);
     const [typeCfPass, setTypeCfPass] = useState(false);
 
-    const { name, email, avatar, password, cf_password } = user;
+    const { name, avatar, password, cf_password } = user;
 
     const handleFileChange = (e: InputChange) => {
       const target = e.target as HTMLInputElement;
@@ -79,7 +79,7 @@ const UserInfo = () => {
                 placeholder="Your name is up to 20 chars long"
                 name="name"
                 id="name"
-                value={auth.user.name}
+                defaultValue={auth.user.name}
                 onChange={handleInputChange}
               />
             </div>
@@ -109,6 +109,7 @@ const UserInfo = () => {
                   placeholder="Password must be at least 6 chars long"
                   name="password"
                   id="password"
+                  value={password}
                   onChange={handleInputChange}
                 />
                 <label
@@ -130,6 +131,7 @@ const UserInfo = () => {
                   placeholder="Confirm password"
                   name="cf_password"
                   id="cf_password"
+                  value={cf_password}
                   onChange={handleInputChange}
                 />
                 <label
