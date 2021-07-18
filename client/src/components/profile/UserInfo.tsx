@@ -1,7 +1,7 @@
 import React,{ useState }   from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { InputChange, RootStore, IUserProfile, FormSubmit } from "../../utils/TypeScript";
-import { updateUser } from '../../redux/actions/profile';
+import { updateUser, resetPassword } from '../../redux/actions/profile';
 
 const UserInfo = () => {
     const { auth } = useSelector((state: RootStore) => state);
@@ -34,6 +34,10 @@ const UserInfo = () => {
       e.preventDefault();
       if(avatar || name) {
         dispatch(updateUser((avatar as File), name, auth));
+      }
+
+      if(password || auth.access_token){
+        dispatch(resetPassword(password, cf_password, auth.access_token));
       }
     };
     
