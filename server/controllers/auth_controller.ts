@@ -144,7 +144,7 @@ const auth = {
       if (user) {
         loginUser(user, password, res);
       } else {
-        const user = { name, email, password, avatar: picture, type: "login" };
+        const user = { name, email, password, avatar: picture, type: "google" };
         registerUser(user, res);
       }
     } catch (err) {
@@ -169,7 +169,7 @@ const auth = {
       if (user) {
         loginUser(user, password, res);
       } else {
-        const user = { name, email, password, avatar: picture.data.url, type: "login" };
+        const user = { name, email, password, avatar: picture.data.url, type: "facebook" };
         registerUser(user, res);
       }
     } catch (err) {
