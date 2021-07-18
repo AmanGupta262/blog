@@ -27,6 +27,12 @@ const user = {
         .status(401)
         .json({ success: false, msg: "Invalid Authentication." });
 
+    if (user.type !== "register")
+      return res.status(401).json({
+        success: false,
+        msg: `Quick login account with ${user.type} can't use this feature`,
+      });
+
     try {
       const { password } = req.body;
 

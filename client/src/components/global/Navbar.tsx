@@ -24,7 +24,7 @@ const Navbar = () => {
   const userNavigation = [
     { label: "Profile", path: `/profile/${auth.user?._id}` },
     { label: "Settings", path: "/settings" },
-    { label: "Logout", path: "/logout" },
+    { label: "Logout", path: "/" },
   ];
   const links = auth.access_token ? afLoginLinks : bfLoginLinks;
   const { pathname } = useLocation();

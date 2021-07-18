@@ -169,7 +169,13 @@ const auth = {
       if (user) {
         loginUser(user, password, res);
       } else {
-        const user = { name, email, password, avatar: picture.data.url, type: "facebook" };
+        const user = {
+          name,
+          email,
+          password,
+          avatar: picture.data.url,
+          type: "facebook",
+        };
         registerUser(user, res);
       }
     } catch (err) {
@@ -181,10 +187,13 @@ const auth = {
 const loginUser = (user: IUser, password: string, res: Response) => {
   const isMatch = password === user.password;
 
-  if (!isMatch)
-    return res
-      .status(401)
-      .json({ success: false, msg: "Invalid email / password" });
+  if (!isMatch) {
+    const errorMsg =
+      user.type === "register"
+        ? "Invalid email / password."
+        : `Invalid email / password. Try logging in using ${user.type}`;
+    return res.status(401).json({ success: false, msg: errorMsg });
+  }
 
   const access_token = generateAccessToken({ id: user._id });
   const refresh_token = generateRefreshToken({ id: user._id });

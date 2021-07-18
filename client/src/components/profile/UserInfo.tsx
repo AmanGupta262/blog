@@ -118,8 +118,7 @@ const UserInfo = () => {
           <div className="mt-8 content-center">
             {auth.user.type !== "register" && (
               <small className="text-red-500 -mb-5">
-                * Quick login account with {auth.user.type} can't use this
-                feature *
+                Quick login account with {auth.user.type} can't use this feature.
               </small>
             )}
             <label className="text-sm font-bold text-gray-700 tracking-wide">

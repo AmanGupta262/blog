@@ -47,7 +47,7 @@ export const updateUser =
 
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
-      dispatch({ type: ALERT, payload: { errors: err.response.data.message } });
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
   };
 
@@ -65,6 +65,6 @@ export const resetPassword =
 
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
-      dispatch({ type: ALERT, payload: { errors: err.response.data.message } });
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
   };
