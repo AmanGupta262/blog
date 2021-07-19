@@ -18,6 +18,7 @@ app.use(cookieParser());
 // Routes
 app.use("/api/v1/auth", routes.authRouter);
 app.use("/api/v1/users", routes.userRouter);
+app.use("/api/v1/category", routes.categoryRouter);
 
 // Create server
 const PORT = process.env.PORT || 8000;
