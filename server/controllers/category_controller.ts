@@ -59,6 +59,24 @@ const categoryController = {
       } catch (err: any) {
         return res.status(500).json({ msg: err.message });
       }
+  },
+  delete: async (req: IReqAuth, res: Response) => {
+      const user = req.user;
+      if (!user)
+        return res
+          .status(401)
+          .json({ success: false, msg: "Invalid Authentication." });
+
+      if (user.role !== "admin")
+        return res
+          .status(401)
+          .json({ success: false, msg: "Invalid Authentication." });
+      try {
+        const category = await Category.findOneAndDelete({_id: req.params.id});
+        return res.status(200).json({success: true , msg: "Category deleted successfully."});
+      } catch (err: any) {
+        return res.status(500).json({ msg: err.message });
+      }
   }
 };
 

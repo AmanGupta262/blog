@@ -11,6 +11,7 @@ router.route('/')
 
 router.route('/:id')
     .patch(auth, categoryCtrl.update)
+    .delete(auth, categoryCtrl.delete)
 
 
 
