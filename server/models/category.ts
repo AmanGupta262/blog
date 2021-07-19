@@ -4,10 +4,10 @@ const categoryModel = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Category name is required."],
       trim: true,
       unique: true,
-      maxlength: 50,
+      maxlength: [50, "Category name is up to 50 chars long."],
     },
   },
   {

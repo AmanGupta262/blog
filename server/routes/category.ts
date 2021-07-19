@@ -5,7 +5,10 @@ import auth from '../middleware/auth'
 const router = express.Router();
 
 // create category
-router.post('/', auth, categoryCtrl.create);
+router.route('/')
+    .get(categoryCtrl.getAll)
+    .post(auth, categoryCtrl.create)
+
 
 
 export default router;
