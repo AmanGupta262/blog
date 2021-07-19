@@ -9,6 +9,9 @@ router.route('/')
     .get(categoryCtrl.getAll)
     .post(auth, categoryCtrl.create)
 
+router.route('/:id')
+    .patch(auth, categoryCtrl.update)
+
 
 
 export default router;
