@@ -12,7 +12,7 @@ const Profile = () => {
   const { auth } = useSelector((state: RootStore) => state);
   return (
     <>
-      <div className="bg-gray-100 container p-5 flex flex-col md:flex-row">
+      <div className="bg-gray-100 container p-5 flex flex-col md:flex-row items-start">
         <div className="md:w-1/3 mb-4 bg-white md:mr-4 w-full shadow-md rounded-lg">
           {auth.user?._id === slug ? <UserInfo /> : <OtherInfo />}
         </div>
