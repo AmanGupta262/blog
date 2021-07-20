@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import NotFound from "../components/global/NotFound";
 import { FormSubmit, RootStore } from "../utils/TypeScript";
+import { createCategory } from "../redux/actions/category";
 
 const Category = () => {
   const [name, setName] = useState("");
@@ -11,7 +13,14 @@ const Category = () => {
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault();
+    if(!auth.access_token || !name) {
+      return;
+    }
+    dispatch(createCategory(name, auth.access_token));
+    setName("");
   };
+
+  if(auth.user?.role !== 'admin') return <NotFound />;
   return (
     <>
       <div className="bg-gray-100 container p-5 flex flex-col md:flex-row items-start">
