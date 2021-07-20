@@ -7,11 +7,13 @@ import { Alert } from "./components/alert/Alert";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { refresh_token } from "./redux/actions/auth";
+import { getCategories } from "./redux/actions/category";
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refresh_token());
+    dispatch(getCategories());
   }, [dispatch]);
   return (
     <div className="container mx-auto px-4">

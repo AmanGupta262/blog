@@ -9,7 +9,7 @@ const Category = () => {
   const [name, setName] = useState("");
 
   const dispatch = useDispatch();
-  const { auth } = useSelector((state: RootStore) => state);
+  const { auth, categories } = useSelector((state: RootStore) => state);
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault();
@@ -50,21 +50,23 @@ const Category = () => {
           </form>
         </div>
         <div className="md:w-2/3 bg-white w-full shadow-md rounded-lg p-4">
-          <div className="category p-3 border-b border-gray-300 flex mb-2 rounded">
-            <div className="w-1/2 capitalize">category name</div>
-            <div className="w-1/2 flex justify-end items-center">
-              <img
-                src="https://image.flaticon.com/icons/png/512/1159/1159633.png"
-                alt="edit"
-                className="w-4 h-4 mr-4 cursor-pointer hover:bg-blue-100 focus:bg-blue-100"
-              />
-              <img
-                src="https://image.flaticon.com/icons/png/512/833/833262.png"
-                alt="delete"
-                className="w-4 h-4 cursor-pointer hover:bg-red-100 focus:bg-red-100"
-              />
+          {categories.map((category) => (
+            <div className="category p-3 border-b border-gray-300 flex mb-2 rounded" key={category._id}>
+              <div className="w-1/2 capitalize">{category.name}</div>
+              <div className="w-1/2 flex justify-end items-center">
+                <img
+                  src="https://image.flaticon.com/icons/png/512/1159/1159633.png"
+                  alt="edit"
+                  className="w-4 h-4 mr-4 cursor-pointer hover:bg-blue-100 focus:bg-blue-100"
+                />
+                <img
+                  src="https://image.flaticon.com/icons/png/512/833/833262.png"
+                  alt="delete"
+                  className="w-4 h-4 cursor-pointer hover:bg-red-100 focus:bg-red-100"
+                />
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

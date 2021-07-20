@@ -1,11 +1,12 @@
-import { ICategoryType, CREATE_CATEGORY } from "../types/categoryTypes";
+import * as types from "../types/categoryTypes";
 import { ICategory } from "../../utils/TypeScript";
 
-const categoryReducer = (state: ICategory[] = [], action: ICategoryType): ICategory[] => {
+const categoryReducer = (state: ICategory[] = [], action: types.ICategoryType): ICategory[] => {
     switch (action.type) {
-        case CREATE_CATEGORY:
+        case types.CREATE_CATEGORY:
             return [action.payload, ...state]
-
+        case types.GET_CATEGORIES:
+            return action.payload;
         default:
             return state;
     }

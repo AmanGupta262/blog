@@ -102,6 +102,16 @@ const Navbar = () => {
                       {link.label}
                     </Link>
                   ))}
+                  {auth.user?.role === "admin" && (
+                    <Link
+                      to="/category"
+                      className={`${isActive(
+                        "/category"
+                      )} hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+                    >
+                      Category
+                    </Link>
+                  )}
                   <Search />
                 </div>
               </div>
