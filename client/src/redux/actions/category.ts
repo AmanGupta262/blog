@@ -1,8 +1,9 @@
 import { Dispatch } from "redux";
 import { IAlertType, ALERT } from "../types/alertTypes";
-import { postAPI, getAPI, patchAPI } from "../../utils/FetchData";
+import { postAPI, getAPI, patchAPI, deleteAPI } from "../../utils/FetchData";
 import {
   CREATE_CATEGORY,
+  DELETE_CATEGORY,
   GET_CATEGORIES,
   ICategoryType,
   UPDATE_CATEGORY,
@@ -54,6 +55,21 @@ export const updateCategory =
       dispatch({
         type: UPDATE_CATEGORY,
         payload: data,
+      });
+    } catch (err: any) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
+
+export const deleteCategory =
+  (id: string, token: string) =>
+  async (dispatch: Dispatch<IAlertType | ICategoryType>) => {
+    try {
+      await deleteAPI(`category/${id}`, token);
+
+      dispatch({
+        type: DELETE_CATEGORY,
+        payload: id,
       });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NotFound from "../components/global/NotFound";
 import { FormSubmit, ICategory, RootStore } from "../utils/TypeScript";
-import { createCategory, updateCategory } from "../redux/actions/category";
+import { createCategory, updateCategory, deleteCategory } from "../redux/actions/category";
 import { useEffect } from "react";
 
 const Category = () => {
@@ -28,6 +28,11 @@ const Category = () => {
     }
     setName("");
     setEdit(null);
+  };
+
+  const handleDelete = (id: string) => {
+    if (!auth.access_token) return;
+    dispatch(deleteCategory(id, auth.access_token));
   };
 
   useEffect(() => {
@@ -92,6 +97,7 @@ const Category = () => {
                   src="https://image.flaticon.com/icons/png/512/833/833262.png"
                   alt="delete"
                   className="w-4 h-4 cursor-pointer hover:bg-red-100 focus:bg-red-100"
+                  onClick={() => handleDelete(category._id)}
                 />
               </div>
             </div>

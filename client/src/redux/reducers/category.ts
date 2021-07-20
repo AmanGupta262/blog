@@ -16,6 +16,8 @@ const categoryReducer = (
           ? { ...item, name: action.payload.name }
           : item
       );
+    case types.DELETE_CATEGORY:
+        return state.filter(item => item._id !== action.payload);
     default:
       return state;
   }
