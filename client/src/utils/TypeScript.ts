@@ -47,6 +47,7 @@ export interface ICategory {
   updatedAt: string;
 }
 export interface IBlog {
+  _id?: string;
   user: string | IUser;
   title: string;
   content: string;

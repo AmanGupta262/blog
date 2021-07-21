@@ -30,8 +30,8 @@ const CreateBlog = () => {
           <div className="md:w-1/2 mb-4 bg-white md:mr-4 w-full shadow-md rounded-lg">
             <CreateForm blog={blog} setBlog={setBlog} />
           </div>
-          <div className="md:w-1/2 bg-white w-full shadow-md rounded-lg">
-            <Preview />
+          <div className="md:w-1/2 w-full rounded-lg">
+            <Preview blog={blog} />
           </div>
         </div>
       </>
