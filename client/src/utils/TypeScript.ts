@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent } from "react";
 import rootReducer from "../redux/reducers";
 
-export type InputChange = ChangeEvent<HTMLInputElement>;
+export type InputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
 export type FormSubmit = FormEvent<HTMLFormElement>;
 export type RootStore = ReturnType<typeof rootReducer>;
 
@@ -45,4 +45,13 @@ export interface ICategory {
   name: string;
   createdAt: string;
   updatedAt: string;
+}
+export interface IBlog {
+  user: string | IUser;
+  title: string;
+  content: string;
+  description: string;
+  category: string;
+  thumbnail: string | File;
+  createAt: string;
 }
