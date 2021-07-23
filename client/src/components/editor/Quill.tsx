@@ -31,9 +31,6 @@ interface IProps {
 const Quill: React.FC<IProps> = ({ setBody }) => {
   const modules = { toolbar: { container } };
 
-  const handleChange = (e: string) => {
-    setBody(e);
-  };
   const dispatch = useDispatch();
   const quillRef = useRef<ReactQuill>(null);
 
@@ -66,7 +63,7 @@ const Quill: React.FC<IProps> = ({ setBody }) => {
       dispatch({ type: ALERT, payload: { loading: false } });
       
     }
-  },[]);
+  },[dispatch]);
 
   useEffect(() => {
     const quill = quillRef.current;
@@ -82,7 +79,7 @@ const Quill: React.FC<IProps> = ({ setBody }) => {
         modules={modules}
         theme="snow"
         placeholder="Write something..."
-        onChange={handleChange}
+        onChange={e => setBody(e)}
         ref={quillRef}
       />
     </>
