@@ -6,6 +6,7 @@ import { IBlog, RootStore } from '../utils/TypeScript';
 import Preview from "../components/blog/Preview";
 import CreateForm from "../components/blog/CreateForm";
 import NotFound from "../components/global/NotFound";
+import Quill from '../components/editor/Quill';
 
 const CreateBlog = () => {
     const initState = {
@@ -19,6 +20,7 @@ const CreateBlog = () => {
     }
 
     const [blog, setBlog] = useState<IBlog>(initState);
+    const [body, setBody] = useState("");
 
     const {auth} = useSelector((state: RootStore) => state);
 
@@ -29,6 +31,7 @@ const CreateBlog = () => {
         <div className="bg-gray-100 container p-5 flex flex-col md:flex-row items-start">
           <div className="md:w-1/2 mb-4 bg-white md:mr-4 w-full shadow-md rounded-lg">
             <CreateForm blog={blog} setBlog={setBlog} />
+            <Quill setBody={setBody} />
           </div>
           <div className="md:w-1/2 w-full rounded-lg">
             <Preview blog={blog} />

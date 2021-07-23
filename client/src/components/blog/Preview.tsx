@@ -10,7 +10,7 @@ const Preview: React.FC<IProps> = ({blog}) => {
     return (
       <>
         <div className="p-4 text-2xl">Preview</div>
-        <div className="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl mt-4 w-100 mx-2">
+        <div className="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl mt-4 w-100 mx-2 mb-4">
           <div className="h-full w-auto md:w-1/2">
             {typeof blog.thumbnail === "string" ? (
               <Link to={`/blog/${blog._id}`}>
