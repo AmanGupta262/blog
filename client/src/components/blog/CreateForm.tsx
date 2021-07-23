@@ -14,7 +14,7 @@ const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
     const { name, value } = e.target;
     setBlog({
       ...blog,
-      [name]: value
+      [name]: value.trim()
     });
   }
 
