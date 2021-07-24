@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { postAPI } from "../../utils/FetchData";
 import { uploadImage } from "../../utils/imageUpload";
 import { IBlog } from "../../utils/TypeScript";
 import { ALERT, IAlertType } from "../types/alertTypes";
@@ -17,7 +18,9 @@ export const createBlog =
 
       const newBlog = { ...blog, thumbnail: url };
 
-      console.log({ newBlog, token });
+      const res = await postAPI('/blog/create', newBlog, token);
+      console.log(res);
+      
       dispatch({ type: ALERT, payload: { loading: false } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
