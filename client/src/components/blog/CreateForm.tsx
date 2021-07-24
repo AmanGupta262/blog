@@ -10,23 +10,23 @@ interface IProps {
 const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
   const { categories } = useSelector((state: RootStore) => state);
 
-  const handleChange = (e:InputChange) => {
+  const handleChange = (e: InputChange) => {
     const { name, value } = e.target;
     setBlog({
       ...blog,
-      [name]: value.trim()
+      [name]: value,
     });
-  }
+  };
 
-  const handleThumbnailChange = (e:InputChange) => {
+  const handleThumbnailChange = (e: InputChange) => {
     const target = e.target as HTMLInputElement;
     const files = target.files;
 
-    if(files){
+    if (files) {
       const file = files[0];
       setBlog({ ...blog, thumbnail: file });
     }
-  }
+  };
 
   return (
     <>
@@ -64,9 +64,9 @@ const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
             id="description"
             name="description"
             value={blog.description}
-            onChange={handleChange}            
+            onChange={handleChange}
             rows={4}
-            className="rounded w-full resize-none"
+            className="rounded w-full resize-none no-scrollbar"
           />
           <small className="absolute right-2 bottom-2 text-gray-500">
             {blog.description.length}/200

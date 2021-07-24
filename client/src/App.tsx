@@ -16,7 +16,7 @@ const App = () => {
     dispatch(getCategories());
   }, [dispatch]);
   return (
-    <div className="container md:mx-auto md:px-4">
+    <div className="container md:mx-auto md:w-auto w-full md:px-4">
       <Router>
         <Navbar />
 

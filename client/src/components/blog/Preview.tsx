@@ -10,19 +10,19 @@ const Preview: React.FC<IProps> = ({blog}) => {
     return (
       <>
         <div className="p-4 text-2xl">Preview</div>
-        <div className="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl mt-4 w-100 mx-2 mb-4">
-          <div className="h-full w-auto md:w-1/2">
+        <div className="flex flex-col lg:flex-row overflow-hidden bg-white rounded-lg shadow-xl mt-4 w-100 mx-2 mb-4">
+          <div className="h-48 lg:h-full w-full lg:w-1/2  ">
             {typeof blog.thumbnail === "string" ? (
               <Link to={`/blog/${blog._id}`}>
                 <img
-                  className="inset-0 h-full w-full object-cover object-center"
+                  className="h-full w-full object-cover object-center"
                   src={blog.thumbnail}
                   alt={blog.title}
                 />
               </Link>
             ) : (
               <img
-                className="inset-0 h-full w-full object-cover object-center"
+                className="h-full w-full object-cover object-center"
                 src={URL.createObjectURL(blog.thumbnail)}
                 alt="Mountain"
               />
@@ -33,7 +33,9 @@ const Preview: React.FC<IProps> = ({blog}) => {
             <h3 className="font-semibold text-lg leading-tight truncate">
               {blog.title}
             </h3>
-            <p className="mt-2">{blog.description}</p>
+            <p className="mt-2 md:max-h-48 no-scrollbar md:overflow-y-auto">
+              {blog.description}
+            </p>
             <p className="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
               Aman &bull; {new Date(blog.createAt).toLocaleTimeString()}
             </p>

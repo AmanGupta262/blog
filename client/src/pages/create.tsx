@@ -9,6 +9,7 @@ import NotFound from "../components/global/NotFound";
 import Quill from '../components/editor/Quill';
 import { validCreateBlog } from '../utils/Valid';
 import { ALERT } from '../redux/types/alertTypes';
+import { createBlog } from "../redux/actions/blog";
 
 const CreateBlog = () => {
     const initState = {
@@ -31,11 +32,15 @@ const CreateBlog = () => {
 
     const {auth} = useSelector((state: RootStore) => state);
 
-    const handleSubmit = () => {
+    const handleSubmit = async  () => {
       if(!auth.access_token) return;
 
       const check = validCreateBlog({...blog, content: text});
       if(check.errLength > 0) return dispatch({type: ALERT, payload: {errors: check.errMsg}})
+
+      let newData = { ...blog, content: body };
+
+      dispatch(createBlog(newData, auth.access_token));
     }
 
     useEffect(() => {
