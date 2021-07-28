@@ -6,7 +6,7 @@ import { ALERT, IAlertType } from "../types/alertTypes";
 import { GET_HOME_BLOGS, IGetHomeBlogsType } from "../types/blogTypes";
 
 export const createBlog =
-  (blog: IBlog, token: string) => async (dispatch: Dispatch<IAlertType | IGetHomeBlogsType>) => {
+  (blog: IBlog, token: string) => async (dispatch: Dispatch<IAlertType>) => {
     let url;
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
@@ -27,12 +27,13 @@ export const createBlog =
     }
   };
 
-export const getHomeBlogs = () => async (dispatch: Dispatch<IAlertType>) => {
+export const getHomeBlogs =
+  () => async (dispatch: Dispatch<IAlertType | IGetHomeBlogsType>) => {
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
       const res = await getAPI("/blog/home");
-      console.log(res);
+      dispatch({ type: GET_HOME_BLOGS, payload: res.data.blogs });
 
       dispatch({ type: ALERT, payload: { loading: false } });
     } catch (err: any) {

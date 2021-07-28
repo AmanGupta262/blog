@@ -13,9 +13,9 @@ import { getHomeBlogs } from "./redux/actions/blog";
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(refresh_token());
+    dispatch(getHomeBlogs())
     dispatch(getCategories());
-    dispatch(getHomeBlogs());
+    dispatch(refresh_token());
   }, [dispatch]);
   return (
     <div className="container md:mx-auto md:w-auto w-full md:px-4">
