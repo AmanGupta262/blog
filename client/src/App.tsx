@@ -8,12 +8,14 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { refresh_token } from "./redux/actions/auth";
 import { getCategories } from "./redux/actions/category";
+import { getHomeBlogs } from "./redux/actions/blog";
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refresh_token());
     dispatch(getCategories());
+    dispatch(getHomeBlogs());
   }, [dispatch]);
   return (
     <div className="container md:mx-auto md:w-auto w-full md:px-4">
